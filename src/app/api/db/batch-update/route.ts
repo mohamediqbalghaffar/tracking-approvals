@@ -80,7 +80,15 @@ export async function POST(request: Request) {
     });
 
     // Background sync to Excel spreadsheets
-    Promise.all([\n      syncTableToExcel('ReceivedLetter'),\n      syncTableToExcel('SentLetter'),\n      syncTableToExcel('IncomingLetter'),\n    ]).catch(console.error);
+    Promise.all([
+      syncTableToExcel('ReceivedLetter'),
+      syncTableToExcel('SentLetter'),
+      syncTableToExcel('IncomingLetter'),
+    ]).catch(console.error);
 
     return NextResponse.json({ success: true, message: 'Batch update successful' });
-  } catch (error: any) {\n    console.error('Batch update error:', error);\n    return NextResponse.json({ error: error.message || 'Failed to update' }, { status: 500 });\n  }\n}
+  } catch (error: any) {
+    console.error('Batch update error:', error);
+    return NextResponse.json({ error: error.message || 'Failed to update' }, { status: 500 });
+  }
+}
